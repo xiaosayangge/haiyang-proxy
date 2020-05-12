@@ -1,13 +1,12 @@
 package com.hy.config;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.hy.annotation.CodeBearMapperScanner;
+import com.hy.annotation.HTTPBearScanner;
 import com.hy.interceptor.HyInterceptor;
 
 /**  
@@ -15,7 +14,8 @@ import com.hy.interceptor.HyInterceptor;
 * Creater by chenhaiyang on 2019年3月6日
 */
 @Configuration
-@CodeBearMapperScanner("com.hy.service")
+@CodeBearMapperScanner("com.hy.service.db")
+@HTTPBearScanner("com.hy.service.http")
 public class Config implements WebMvcConfigurer{
 	
 	@Override

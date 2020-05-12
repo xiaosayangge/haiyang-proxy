@@ -1,31 +1,26 @@
-package com.hy.proxy.service;
+package com.hy.util;
 
-import java.io.File;
 import java.util.Set;
 
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.context.ResourceLoaderAware;
-import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.annotation.AnnotationAttributes;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotationMetadata;
 
 import com.hy.annotation.CodeBearMapperScanner;
-import com.hy.util.ClassScaner;
+import com.hy.service.proxy.CodeBeanFactoryBean;
 
 /**  
-* CodeBearMapperScannerRegistrar
-* Creater by chenhaiyang on 2020年5月11日
+* RegistrarBean
+* Creater by chenhaiyang on 2020年5月12日
 */
-public class CodeBearMapperScannerRegistrar implements ImportBeanDefinitionRegistrar {
-
-    @Override
-    public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
-        try {
+public class RegistrarBean {
+	
+	public static void registrar(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry,Class cls,Class beanClass){
+		try {
             AnnotationAttributes annoAttrs =
-                    AnnotationAttributes.fromMap(importingClassMetadata.getAnnotationAttributes(CodeBearMapperScanner.class.getName()));
+                    AnnotationAttributes.fromMap(importingClassMetadata.getAnnotationAttributes(cls.getName()));
             
             String packageValue = annoAttrs.getString("value");
             Set<Class> set= ClassScaner.scan(packageValue);
@@ -33,13 +28,15 @@ public class CodeBearMapperScannerRegistrar implements ImportBeanDefinitionRegis
             	if (aClass.isInterface()&&!aClass.isAnnotation()) {
                     BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition();
                     AbstractBeanDefinition beanDefinition = beanDefinitionBuilder.getBeanDefinition();
-                    beanDefinition.setBeanClass(CodeBeanFactoryBean.class);
+                    beanDefinition.setBeanClass(beanClass);
                     beanDefinition.getConstructorArgumentValues().addGenericArgumentValue(aClass.getName());
                     registry.registerBeanDefinition(aClass.getName(), beanDefinition);
                 }
             });
             
         } catch (Exception ex) {
+        	ex.printStackTrace();
         }
-    }
+	}
+
 }

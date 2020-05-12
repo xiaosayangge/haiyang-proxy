@@ -1,4 +1,4 @@
-package com.hy.service;
+package com.hy.service.db;
 
 import com.hy.annotation.Sql;
 

@@ -1,4 +1,4 @@
-package com.hy.proxy.service;
+package com.hy.service.proxy;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -18,14 +18,17 @@ public class CodeBeanFactoryBean<T> implements FactoryBean<T>, InvocationHandler
 
     public CodeBeanFactoryBean(Class<T> clazz) {
         this.clazz = clazz;
-        
     }
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+    	
+    	if(method.getName().equals("toString")){
+    		return clazz.toString();
+    	}
+    	
     	Sql annotation = method.getAnnotation(Sql.class);
     	String value = annotation.value();
-    	System.out.println(value);
     	return value;
     }
 

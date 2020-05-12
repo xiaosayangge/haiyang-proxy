@@ -5,8 +5,7 @@ import java.lang.annotation.RetentionPolicy;
 
 import org.springframework.context.annotation.Import;
 
-import com.hy.service.proxy.CodeBearMapperScannerRegistrar;
-
+import com.hy.service.proxy.HTTPBeanScannerRegistrar;
 
 
 /**  
@@ -14,8 +13,8 @@ import com.hy.service.proxy.CodeBearMapperScannerRegistrar;
 * CodeBearMapperScanner
 * Creater by chenhaiyang on 2020年5月11日
 */
-@Import(CodeBearMapperScannerRegistrar.class)
+@Import(HTTPBeanScannerRegistrar.class)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface CodeBearMapperScanner {
+public @interface HTTPBearScanner {
     String value();
 }
