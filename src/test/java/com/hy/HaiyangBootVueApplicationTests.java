@@ -30,6 +30,7 @@ public class HaiyangBootVueApplicationTests {
 		Object userById = userService.getUserById(1l);
 		System.out.println(userById);
 		
+		
 		Object activityById = activityService.getActivityById(2l);
 		System.out.println(activityById);
 		
