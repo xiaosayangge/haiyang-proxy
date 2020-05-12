@@ -18,6 +18,7 @@ public class CodeBeanFactoryBean<T> implements FactoryBean<T>, InvocationHandler
 
     public CodeBeanFactoryBean(Class<T> clazz) {
         this.clazz = clazz;
+        
     }
 
     @Override
